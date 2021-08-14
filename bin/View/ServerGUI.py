@@ -1,43 +1,59 @@
 """
-Created on Tue Aug 10 14:41:22 2021
-
 @author: buizo
 """
 
+from View.UtilitiesView import UtilitiesVIew
 import tkinter as tk
 
-class ServerGUI:
-    COST_HEADER_WINDOW = "Server";
+class ServerGUI():
 
-    COST_START = "Start";
-    COST_STOP = "Stop";
-
-    COST_COLOR_LIGTH_GREEN = "#99ff99";
-    COST_COLOR_LIGTH_RED = "#ff8080";
-
-    COST_FONT_TITLE = ("Roman", 35, "bold", "italic");
-    COST_FONT = ("Italic", 16, "bold", "normal");
-
-    def __init__(self, colorBg, colorFg):
+    def __init__(self):
         self.window = tk.Tk();
+        self.lbTitle = tk.Label();
+        self.btnStart = tk.Button();
+        self.btnStop = tk.Button();
+
+        self.lblHost = tk.Label();
+        self.lblPort = tk.Label();
+
+        #self.lbLine = tk.Label();
+        #self.tkDisplay = tk.Text();
+        #self.scrollBar = tk.Scrollbar();
+
+        self.initializeWindow("400x500", "purple", "white");
+        self.createTitle(UtilitiesVIew.TITLE_SERVER_GUI);
+        self.createButtons();
+        self.createViewIpAndPort();
+        self.createListGamer();
+
+
+    def getBtnStart(self):
+        return self.btnStart;
+
+
+    def getBtnStop(self):
+        return self.btnStop;
+
+
+    def initializeWindow(self, dimensions, colorBg, colorFg):
+        self.window.title(UtilitiesVIew.HEADER_WINDOW);
+        self.window.configure(bg = colorBg);
+        self.window.geometry(dimensions);
         self.background = colorBg;
         self.foreground = colorFg;
-        self.window.configure(bg = self.background);
-
-
-    def initializeWindow(self, dimensions):
-        self.window.title(self.COST_HEADER_WINDOW);
-        self.window.geometry(dimensions);
 
 
     def createTitle(self, title):
         titleCanvas = tk.Frame(self.window);
 
-        self.lbTitle = tk.Label(
-            titleCanvas, text = title, 
-            font = self.COST_FONT_TITLE, 
+        self.lbTitle.master = titleCanvas;
+        self.lbTitle.configure(
+            text = title,
+            font = UtilitiesVIew.FONT_TITLE, 
             bg = self.background, 
-            fg = self.foreground).pack();
+            fg = self.foreground);
+
+        self.lbTitle.pack();
 
         titleCanvas.pack(side = tk.TOP, pady = (5, 0)); 
         
@@ -45,21 +61,26 @@ class ServerGUI:
     def createButtons(self):
         btnCanvas = tk.Frame(self.window);
 
-        self.btnStart = tk.Button(btnCanvas, 
-            text = self.COST_START, 
-            font = self.COST_FONT, 
-            bg = self.COST_COLOR_LIGTH_GREEN,
+        self.btnStart.master = btnCanvas;
+        self.btnStart.configure(
+            text = UtilitiesVIew.START, 
+            font = UtilitiesVIew.FONT, 
+            bg = UtilitiesVIew.COLOR_LIGTH_GREEN,
             fg = self.foreground,
-            activebackground = "green",
-            ).pack(side = tk.LEFT);
+            activebackground = "green");
 
-        self.btnStop = tk.Button(btnCanvas, 
-            text = self.COST_STOP,  
-            font = self.COST_FONT, 
-            bg = self.COST_COLOR_LIGTH_RED,
+        self.btnStart.pack(side = tk.LEFT);
+
+        self.btnStop.master = btnCanvas;
+        self.btnStop.configure(
+            text = UtilitiesVIew.STOP,  
+            font = UtilitiesVIew.FONT, 
+            bg = UtilitiesVIew.COLOR_LIGTH_RED,
             fg = self.foreground,
-            activebackground = "red"
-            ).pack(side = tk.LEFT);
+            activebackground = "red",
+            state = tk.DISABLED);
+            
+        self.btnStop.pack(side = tk.LEFT);
 
         btnCanvas.pack(side = tk.TOP, pady = (5, 0));
 
@@ -67,19 +88,21 @@ class ServerGUI:
     def createViewIpAndPort(self):
         middleCanvas = tk.Frame(self.window);
 
-        self.lblHost = tk.Label(middleCanvas, 
-            font = self.COST_FONT, 
-            text = "Address: X.X.X.X", 
+        self.lblHost.master = middleCanvas;
+        self.lblHost.configure( 
+            font = UtilitiesVIew.FONT, 
+            text = UtilitiesVIew.ADDRESS + "X.X.X.X", 
             bg = self.background, 
-            fg = self.foreground
-            ).pack(side = tk.LEFT);
+            fg = self.foreground);
+        self.lblHost.pack(side = tk.LEFT);
 
-        self.lblPort = tk.Label(middleCanvas, 
-            font = self.COST_FONT, 
-            text = "Port: XXXX", 
+        self.lblPort.master = middleCanvas;
+        self.lblPort.configure( 
+            font = UtilitiesVIew.FONT, 
+            text = UtilitiesVIew.PORT + "XXXX", 
             bg = self.background,  
-            fg = self.foreground
-            ).pack(side = tk.LEFT);
+            fg = self.foreground);
+        self.lblPort.pack(side = tk.LEFT);
 
         middleCanvas.pack(side = tk.TOP, pady = (5, 0));
     
@@ -88,8 +111,8 @@ class ServerGUI:
         listClient = tk.Frame(self.window);
         
         self.lbLine = tk.Label(listClient, 
-            font = self.COST_FONT,
-            text = "--------< Gamer List >--------").pack();
+            font = UtilitiesVIew.FONT,
+            text = UtilitiesVIew.TITLE_LIST).pack();
 
         self.tkDisplay = tk.Text(listClient, height = 20, width = 40);
         self.tkDisplay.pack(side = tk.LEFT, fill = tk.Y, padx = (5, 0));
