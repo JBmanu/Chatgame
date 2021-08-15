@@ -4,14 +4,13 @@ from View.ServerGUI import ServerGUI
 from MasterServer import MasterServer
 
 
-
 gui = ServerGUI();
 
-print(gui.window);
+print(gui);
 
 print(gui.lbTitle);
 
 print(gui.btnStop)
 
 
-gui.window.mainloop();
+gui.mainloop();

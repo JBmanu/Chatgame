@@ -5,10 +5,13 @@
 from View.UtilitiesView import UtilitiesVIew
 import tkinter as tk
 
-class ServerGUI():
+class ServerGUI(tk.Tk):
 
     def __init__(self):
-        self.window = tk.Tk();
+        super().__init__();
+
+        self.frame = tk.Frame(self);
+
         self.lbTitle = tk.Label();
         self.btnStart = tk.Button();
         self.btnStop = tk.Button();
@@ -17,7 +20,7 @@ class ServerGUI():
         self.lblPort = tk.Label();
 
         #self.lbLine = tk.Label();
-        #self.tkDisplay = tk.Text();
+        self.tkDisplay = tk.Text();
         #self.scrollBar = tk.Scrollbar();
 
         self.initializeWindow("400x500", "purple", "white");
@@ -36,31 +39,31 @@ class ServerGUI():
 
 
     def initializeWindow(self, dimensions, colorBg, colorFg):
-        self.window.title(UtilitiesVIew.HEADER_WINDOW);
-        self.window.configure(bg = colorBg);
-        self.window.geometry(dimensions);
+        self.title(UtilitiesVIew.HEADER_WINDOW);
+        self.configure(bg = colorBg);
+        self.geometry(dimensions);
         self.background = colorBg;
         self.foreground = colorFg;
 
 
     def createTitle(self, title):
-        titleCanvas = tk.Frame(self.window);
-
-        self.lbTitle.master = titleCanvas;
+        self.lbTitle.master = self;
         self.lbTitle.configure(
             text = title,
             font = UtilitiesVIew.FONT_TITLE, 
             bg = self.background, 
             fg = self.foreground);
 
-        self.lbTitle.pack();
+        self.lbTitle.pack(side = tk.TOP);
 
-        titleCanvas.pack(side = tk.TOP, pady = (5, 0)); 
-        
 
     def createButtons(self):
-        btnCanvas = tk.Frame(self.window);
+        btnCanvas = tk.Frame(self, bg = "red");
 
+
+        btnCanvas.pack(side = tk.TOP, pady = (5, 0));
+
+        
         self.btnStart.master = btnCanvas;
         self.btnStart.configure(
             text = UtilitiesVIew.START, 
@@ -69,7 +72,7 @@ class ServerGUI():
             fg = self.foreground,
             activebackground = "green");
 
-        self.btnStart.pack(side = tk.LEFT);
+        self.btnStart.pack();
 
         self.btnStop.master = btnCanvas;
         self.btnStop.configure(
@@ -80,13 +83,13 @@ class ServerGUI():
             activebackground = "red",
             state = tk.DISABLED);
             
-        self.btnStop.pack(side = tk.LEFT);
+        self.btnStop.pack();
 
-        btnCanvas.pack(side = tk.TOP, pady = (5, 0));
+        
 
     
     def createViewIpAndPort(self):
-        middleCanvas = tk.Frame(self.window);
+        middleCanvas = tk.Frame(self);
 
         self.lblHost.master = middleCanvas;
         self.lblHost.configure( 
@@ -104,17 +107,19 @@ class ServerGUI():
             fg = self.foreground);
         self.lblPort.pack(side = tk.LEFT);
 
-        middleCanvas.pack(side = tk.TOP, pady = (5, 0));
+        middleCanvas.pack(side = tk.TOP, pady = (5, 0), fill = tk.Y);
     
 
     def createListGamer(self):
-        listClient = tk.Frame(self.window);
+        listClient = tk.Frame(self);
         
-        self.lbLine = tk.Label(listClient, 
+        lbLine = tk.Label(listClient, 
             font = UtilitiesVIew.FONT,
             text = UtilitiesVIew.TITLE_LIST).pack();
 
-        self.tkDisplay = tk.Text(listClient, height = 20, width = 40);
+        self.tkDisplay.master = listClient;
+
+        self.tkDisplay.configure(height = 20, width = 40);
         self.tkDisplay.pack(side = tk.LEFT, fill = tk.Y, padx = (5, 0));
 
         scrollBar = tk.Scrollbar(listClient);
@@ -126,4 +131,4 @@ class ServerGUI():
             highlightbackground = "grey", 
             state = "disabled");
 
-        listClient.pack(side = tk.TOP, pady = (5, 10));
+        listClient.pack(side = tk.TOP, pady = (5, 10), fill = tk.Y);
