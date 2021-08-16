@@ -10,14 +10,17 @@ class ServerGUI(tk.Tk):
     def __init__(self):
         super().__init__();
 
-        self.frame = tk.Frame(self);
+        self.btnFrame = tk.Frame(self, width = 200, height = 100, bg ="white")
+        self.infoFrame = tk.Frame(self, width = 200, height = 100, bg ="red")
+        self.listFrame = tk.Frame(self, width = 200, height = 100)
 
         self.lbTitle = tk.Label();
-        self.btnStart = tk.Button();
-        self.btnStop = tk.Button();
 
-        self.lblHost = tk.Label();
-        self.lblPort = tk.Label();
+        self.btnStart = tk.Button(self.btnFrame);
+        self.btnStop = tk.Button(self.btnFrame);
+
+        self.lblHost = tk.Label(self.infoFrame);
+        self.lblPort = tk.Label(self.infoFrame);
 
         #self.lbLine = tk.Label();
         self.tkDisplay = tk.Text();
@@ -47,34 +50,23 @@ class ServerGUI(tk.Tk):
 
 
     def createTitle(self, title):
-        self.lbTitle.master = self;
         self.lbTitle.configure(
             text = title,
             font = UtilitiesVIew.FONT_TITLE, 
             bg = self.background, 
             fg = self.foreground);
 
-        self.lbTitle.pack(side = tk.TOP);
-
+        self.lbTitle.pack();
 
     def createButtons(self):
-        btnCanvas = tk.Frame(self, bg = "red");
-
-
-        btnCanvas.pack(side = tk.TOP, pady = (5, 0));
-
-        
-        self.btnStart.master = btnCanvas;
         self.btnStart.configure(
             text = UtilitiesVIew.START, 
             font = UtilitiesVIew.FONT, 
             bg = UtilitiesVIew.COLOR_LIGTH_GREEN,
             fg = self.foreground,
             activebackground = "green");
+        self.btnStart.pack(side = tk.LEFT);
 
-        self.btnStart.pack();
-
-        self.btnStop.master = btnCanvas;
         self.btnStop.configure(
             text = UtilitiesVIew.STOP,  
             font = UtilitiesVIew.FONT, 
@@ -82,32 +74,24 @@ class ServerGUI(tk.Tk):
             fg = self.foreground,
             activebackground = "red",
             state = tk.DISABLED);
-            
-        self.btnStop.pack();
-
-        
-
+        self.btnStop.pack(side = tk.LEFT);
+      
     
     def createViewIpAndPort(self):
-        middleCanvas = tk.Frame(self);
 
-        self.lblHost.master = middleCanvas;
         self.lblHost.configure( 
             font = UtilitiesVIew.FONT, 
             text = UtilitiesVIew.ADDRESS + "X.X.X.X", 
             bg = self.background, 
             fg = self.foreground);
         self.lblHost.pack(side = tk.LEFT);
-
-        self.lblPort.master = middleCanvas;
+        
         self.lblPort.configure( 
             font = UtilitiesVIew.FONT, 
             text = UtilitiesVIew.PORT + "XXXX", 
             bg = self.background,  
             fg = self.foreground);
         self.lblPort.pack(side = tk.LEFT);
-
-        middleCanvas.pack(side = tk.TOP, pady = (5, 0), fill = tk.Y);
     
 
     def createListGamer(self):
