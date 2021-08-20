@@ -17,26 +17,28 @@ def startConnection():
         client.connect();
         loginGUI.destroy();
         chatGUI.deiconify();
+
+        RECEIVE_THREAD = Thread(target = receive)
+        RECEIVE_THREAD.start()
     else:
         loginGUI.cleanEntryLogin();
         loginGUI.login_head_label.config(text = "Dati sbagliati, scemo")
 
-    RECEIVE_THREAD = Thread(target = receive)
-    RECEIVE_THREAD.start()
-    
 
 def receive():
     while True:
         try:
-            #quando viene chiamata la funzione receive, si mette in ascolto dei messaggi che
-            #arrivano sul socket
+            #quando viene chiamata la funzione receive, si mette in ascolto dei messaggi che arrivano sul socket
             msg = client.socket.recv(Model.BUFSIZ).decode("utf8")
-            #visualizziamo l'elenco dei messaggi sullo schermo
-            #e facciamo in modo che il cursore sia visibile al termine degli stessi
-            chatGUI.text_widget.insert(tk.END, msg)
-            # Nel caso di errore e' probabile che il client abbia abbandonato la chat.
+            insertMsgInChat(msg)
         except OSError:  
             break
+
+
+def insertMsgInChat(msg):
+    chatGUI.text_widget.configure(state = tk.NORMAL)
+    chatGUI.text_widget.insert(tk.END, msg)
+    chatGUI.text_widget.configure(state = tk.DISABLED)
 
 
 def checkLogin():
