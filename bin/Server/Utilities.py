@@ -11,10 +11,10 @@ class Utilities():
     STOP = "Stop";
 
     ADDRESS = "Address: ";
-    ADDRESS_NONE = "X.X.X.X";
+    ADDRESS_NONE = "Address: X.X.X.X ";
 
     PORT = "Port: ";
-    PORT_NONE = "XXXX"
+    PORT_NONE = "Port: XXXX "
 
     TITLE_LIST = "--------< Gamer List >--------";
 
@@ -23,6 +23,9 @@ class Utilities():
 
     FONT_TITLE = ("Roman", 35, "bold", "italic");
     FONT = ("Italic", 16, "bold", "normal");
+    FONT1 = ("Italic", 12, "bold", "normal");
+
+
 
 
     @staticmethod
@@ -70,7 +73,8 @@ class Utilities():
             bg = bg, 
             fg = fg);   
 
-    
+
+    @staticmethod
     def unionDisplayWitchScrollBar(display, scrollbar, height, width, bg, highBg, state):
         display.config(yscrollcommand = scrollbar.set, 
             height = height,
@@ -78,3 +82,13 @@ class Utilities():
             background = bg,
             highlightbackground = highBg,
             state = state)
+
+
+    @staticmethod
+    def update_client_names_display(nameList, display):
+        display.config(state=tk.NORMAL)
+        display.delete('1.0', tk.END)
+
+        for c in nameList:
+            display.insert(tk.END, c.decode()+"\n")
+            display.config(state=tk.DISABLED)

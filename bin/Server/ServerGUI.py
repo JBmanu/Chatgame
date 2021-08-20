@@ -28,9 +28,9 @@ class ServerGUI(tk.Tk):
 
         # Creazione di label per la visualizzazione address host e sulla porta
         infoFrame = tk.Frame(self)
-        self.lblHost = Utility.createLabel(infoFrame, Utility.FONT, (Utility.ADDRESS + Utility.ADDRESS_NONE), "purple", "white")
+        self.lblHost = Utility.createLabel(infoFrame, Utility.FONT, Utility.ADDRESS_NONE, "purple", "white")
         self.lblHost.pack(side=tk.LEFT);
-        self.lblPort =  Utility.createLabel(infoFrame, Utility.FONT, (Utility.PORT + Utility.PORT_NONE), "purple", "white")
+        self.lblPort =  Utility.createLabel(infoFrame, Utility.FONT, Utility.PORT_NONE, "purple", "white")
         self.lblPort.pack(side=tk.LEFT);
         infoFrame.pack(side=tk.TOP, pady=(5, 0))
 
@@ -38,13 +38,13 @@ class ServerGUI(tk.Tk):
         listFrame = tk.Frame(self)
         Utility.createLabel(listFrame, Utility.FONT, Utility.TITLE_LIST, "#F4F6F7", "black").pack()
 
-        tkDisplay = tk.Text(listFrame);
-        tkDisplay.pack(side=tk.LEFT, fill=tk.Y, padx=(5, 0));
+        self.tkDisplay = tk.Text(listFrame, font = Utility.FONT1);
+        self.tkDisplay.pack(side=tk.LEFT, fill=tk.Y, padx=(10, 0));
 
-        scrollBar = tk.Scrollbar(listFrame, command = tkDisplay.yview)
+        scrollBar = tk.Scrollbar(listFrame, command = self.tkDisplay.yview)
         scrollBar.pack(side=tk.RIGHT, fill=tk.Y);
 
-        Utility.unionDisplayWitchScrollBar(tkDisplay, scrollBar, 20, 40, "#F4F6F7", "grey", "disabled");
+        Utility.unionDisplayWitchScrollBar(self.tkDisplay, scrollBar, 20, 40, "#F4F6F7", "grey", "disabled");
         listFrame.pack(side=tk.BOTTOM, pady=(5, 10))
 
 
@@ -60,6 +60,15 @@ class ServerGUI(tk.Tk):
         self.btnStart.config(state=tk.NORMAL)
         self.btnStop.config(state=tk.DISABLED)
             
-        self.lblHost.config(text = Utility.ADDRESS + Utility.ADDRESS_NONE)
-        self.lblPort.config(text = Utility.PORT + Utility.PORT_NONE)
+        self.lblHost.config(text = Utility.ADDRESS_NONE)
+        self.lblPort.config(text = Utility.PORT_NONE)
 
+    
+    def updateDisplay(self, gamers, ruoli):
+        self.tkDisplay.config(state = tk.NORMAL, spacing2 = "30")
+        self.tkDisplay.delete('2.0', tk.END)
+
+        for k, v in gamers.items():
+            self.tkDisplay.insert(tk.END, ruoli[k] + " =>" + k + " " + str(v) + "\n")
+
+        self.tkDisplay.config(state=tk.DISABLED)
