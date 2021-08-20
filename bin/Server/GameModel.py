@@ -26,7 +26,7 @@ class GameModel():
         
     def readQuestionFromFile(self):
         # Ho usato path join per avere il path compatibili per piu S.O
-        self.f = open(os.path.join("bin", "Server", "domande.txt"));
+        self.f = open(os.path.join("domande.txt"));
 
         for line in self.f.readlines():
             splitString = line.split(" -> ");

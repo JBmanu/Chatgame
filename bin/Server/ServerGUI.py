@@ -69,6 +69,6 @@ class ServerGUI(tk.Tk):
         self.tkDisplay.delete('2.0', tk.END)
 
         for k, v in gamers.items():
-            self.tkDisplay.insert(tk.END, ruoli[k] + " =>" + k + " " + str(v) + "\n")
+            self.tkDisplay.insert(tk.END, ruoli[k] + " => " + k + " " + str(v) + "\n")
 
         self.tkDisplay.config(state=tk.DISABLED)

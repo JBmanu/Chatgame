@@ -11,7 +11,7 @@ class ServerModel():
 
     SERVER_LISTENING = 5;
     
-    HEADER = "Server: ";
+    HEADER = "Master: ";
 
 
     def __init__(self):
