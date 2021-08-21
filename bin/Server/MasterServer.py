@@ -36,24 +36,15 @@ def accetta_connessioni_in_entrata():
         client, client_address = modelServer.server.accept()
         modelServer.address[client] = client_address
 
-        print("%s : %s si è collegato." % client_address)
-
         # al client che si connette per la prima volta fornisce alcune indicazioni di utilizzo
         client.send(bytes(gameModel.randomSaluti(), "utf8"))
         client.send(bytes(Game.WELCOME, "utf8"))
 
-        # messaggio che avvisa gli altri giocatori se entra qualcuno
-        
-        nome = client.recv(Model.BUFSIZ).decode("utf8")
-        msg = "%s si è unito al gioco!" % nome
+        # avvisa e salva il nickname del giocatore
+        name = client.recv(Model.BUFSIZ).decode("utf8")
+        msg = "%s si è unito al gioco!" % name
         sendBroadcastWithout(client, bytes(msg, "utf8"))
-
-        modelServer.clients[client] = nome
-        gameModel.playersPoint[nome] = 0;
-
-        
-        gameModel.playersRuolo[nome] = gameModel.randomRuolo();
-        guiServer.updateDisplay(gameModel.playersPoint, gameModel.playersRuolo)
+        insertDataClient(client, name)
 
         Thread(target = gestice_client, args = (client,)).start()
 
@@ -62,7 +53,6 @@ def accetta_connessioni_in_entrata():
 def gestice_client(client):  # Prende il socket del client come argomento della funzione.
 
     questions = saveAndSendChoise(client);
-
     stateAnswer = 0
     questionChoice = ""
 
@@ -99,11 +89,10 @@ def sendBroadcastWithout(client, msg, prefisso=""):
 
 
 def clientQuit(client, nome):
-    sendBroadcastToClients(bytes("%s ci lascia, ha perso" % nome, "utf8"))
+    sendBroadcastToClients(bytes("%s ci lascia, ha perso \n" % nome, "utf8"))
     del modelServer.clients[client]
     #elimino solo la connession ma non il dizionazio dei giocatori perche serve per il punteggio
     guiServer.updateDisplay(gameModel.playersPoint, gameModel.playersRuolo)
-    client.send(bytes("quit", "utf8"))
     client.close()
 
 
@@ -122,15 +111,22 @@ def saveAndSendChoise(client):
 
 def sendWrongOrCorrect(client, questionChoice, answer):
     if (questionChoice != "" and answer == gameModel.questionAnswer[questionChoice]):
-        client.send(bytes(Model.HEADER + Game.CORRECT + "\n", "utf8"))
+        client.send(bytes(" " + Game.CORRECT + "\n", "utf8"))
         gameModel.playersPoint[modelServer.clients[client]] += 1
         guiServer.updateDisplay(gameModel.playersPoint, gameModel.playersRuolo)
         
     elif(questionChoice != ""):
-        client.send(bytes(Model.HEADER + Game.WRONG + "\n", "utf8"))
+        client.send(bytes(" " + Game.WRONG + "\n", "utf8"))
         gameModel.playersPoint[modelServer.clients[client]] -= 1
         guiServer.updateDisplay(gameModel.playersPoint, gameModel.playersRuolo)
-        
+
+
+def insertDataClient(client, name):
+    modelServer.clients[client] = name
+    gameModel.playersPoint[name] = 0;
+    gameModel.playersRuolo[name] = gameModel.randomRuolo();
+
+    guiServer.updateDisplay(gameModel.playersPoint, gameModel.playersRuolo)
 
         
 guiServer.mainloop();

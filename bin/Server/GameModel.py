@@ -5,7 +5,7 @@ import os
 from random import *
 
 class GameModel():
-    WELCOME = 'Info: Per uscire, scrivi {quit}.'
+    WELCOME = 'Info: Per uscire, scrivi -quit- \n\n.'
 
     CHOICES = "Scegli tra a b c"
 
