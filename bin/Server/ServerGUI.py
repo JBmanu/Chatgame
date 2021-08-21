@@ -45,7 +45,7 @@ class ServerGUI(tk.Tk):
         scrollBar.pack(side=tk.RIGHT, fill=tk.Y);
 
         Utility.unionDisplayWitchScrollBar(self.tkDisplay, scrollBar, 20, 40, "#F4F6F7", "grey", "disabled");
-        
+        listFrame.pack(side=tk.BOTTOM, pady=(5, 10))
 
 
     def startBtns(self):

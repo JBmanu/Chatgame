@@ -36,16 +36,16 @@ def accetta_connessioni_in_entrata():
         client, client_address = modelServer.server.accept()
         modelServer.address[client] = client_address
 
-        # al client che si connette per la prima volta fornisce alcune indicazioni di utilizzo
-        client.send(bytes(gameModel.randomSaluti(), "utf8"))
-        client.send(bytes(Game.WELCOME, "utf8"))
-
         # avvisa e salva il nickname del giocatore
         name = client.recv(Model.BUFSIZ).decode("utf8")
         msg = "%s si è unito al gioco!" % name
         sendBroadcastWithout(client, bytes(msg, "utf8"))
         insertDataClient(client, name)
 
+        # al client che si connette per la prima volta fornisce alcune indicazioni di utilizzo
+        client.send(bytes(gameModel.randomSaluti(), "utf8"))
+        client.send(bytes(Game.WELCOME + "Il tuo ruolo sara => " + gameModel.playersRuolo[name] , "utf8"))
+         
         Thread(target = gestice_client, args = (client,)).start()
 
 
@@ -66,7 +66,6 @@ def gestice_client(client):  # Prende il socket del client come argomento della 
             stateAnswer = 1
         else: 
             stateAnswer = 0
-            client.send(bytes("Tu: ", "utf8") + msg)
             sendWrongOrCorrect(client, questionChoice, answer)
             questions = saveAndSendChoise(client)
             questionChoice = ""
@@ -105,18 +104,18 @@ def actionChoise(client, answer, questions):
 
 
 def saveAndSendChoise(client):
-    client.send(bytes((Model.HEADER + Game.CHOICES), "utf8"))
+    client.send(bytes((Model.HEADER + Game.CHOICES + '\n'), "utf8"))
     return gameModel.questionForGame();
 
 
 def sendWrongOrCorrect(client, questionChoice, answer):
     if (questionChoice != "" and answer == gameModel.questionAnswer[questionChoice]):
-        client.send(bytes(" " + Game.CORRECT + "\n", "utf8"))
+        client.send(bytes(Game.CORRECT + "\n", "utf8"))
         gameModel.playersPoint[modelServer.clients[client]] += 1
         guiServer.updateDisplay(gameModel.playersPoint, gameModel.playersRuolo)
         
     elif(questionChoice != ""):
-        client.send(bytes(" " + Game.WRONG + "\n", "utf8"))
+        client.send(bytes(Game.WRONG + "\n", "utf8"))
         gameModel.playersPoint[modelServer.clients[client]] -= 1
         guiServer.updateDisplay(gameModel.playersPoint, gameModel.playersRuolo)
 

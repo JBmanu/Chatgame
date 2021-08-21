@@ -6,9 +6,9 @@ class ChatApplication(tk.Tk):
     def __init__(self):
         super().__init__();
         self.title("Chat Game")
-        # self.resizable(width = False, height = False)
+        self.resizable(width = False, height = False)
         self.configure(width = 500, height = 550, bg = Utils.BG_COLOR)
-        # self.withdraw();
+        self.withdraw();
         
         #head label
         self.head_label = tk.Label(self, bg = Utils.BG_COLOR, fg = Utils.TEXT_COLOR,
@@ -93,8 +93,3 @@ class ChatApplication(tk.Tk):
         self.text_widget.configure(state = tk.NORMAL)
         self.text_widget.insert(tk.END, msg)
         self.text_widget.configure(state = tk.DISABLED)
-
-
-gui = ChatApplication();
-
-gui.mainloop()

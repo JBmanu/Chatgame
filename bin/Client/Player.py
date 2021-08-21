@@ -17,6 +17,7 @@ chatGUI.pulsante_invio.config(command = lambda : send())
 chatGUI.pulsante_a.config(command = lambda : sendDefaultChar("a"))
 chatGUI.pulsante_b.config(command = lambda : sendDefaultChar("b"))
 chatGUI.pulsante_c.config(command = lambda : sendDefaultChar("c"))
+chatGUI.pulsante_quit.config(command = lambda : quitGame())
 
 
 # Instaura la connessione con il server
@@ -52,7 +53,7 @@ def send(event=None):
     if(msg == "quit"):
         quitGame();
     else:
-        chatGUI._inserisci_messaggio(msg, "Tu");
+        chatGUI._inserisci_messaggio(msg, '\n\n' + "Tu");
         client.socket.send(bytes(msg, "utf8"))
 
 chatGUI.msg_entry.bind("<Return>", send)
