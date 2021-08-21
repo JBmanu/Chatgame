@@ -1,0 +1,33 @@
+saluto -> Benvenuto al quiz per veri avventurieri, cerca di rispondere a più domande possibili!
+
+saluto -> Saluti, questo è un quiz che metterà alla prova le tue conoscenze. Buona fortuna!
+
+ruolo -> alchimista
+
+ruolo -> viandante
+
+ruolo -> elfo
+
+domanda -> Dimmi la radice quadrata di 225 -> 15
+
+domanda -> Quanto fa 72 + 56? -> 128
+
+domanda -> Quanti bit adiacenti contiene un byte? -> 8
+
+domanda -> Quale sarebbe il simbolo del magnesio nella tavola periodica degli elementi? -> mg
+
+domanda -> Come si chiamava Istanbul fino al 1923? -> costantinopoli
+
+domanda -> Fattori, numeri atomici, numeri primi: quali sono i numeri divisibili solo per 1 e sè stessi? -> numeri primi
+
+domanda -> Everest, Kilimanjaro, Aconcagua: quale tra questi è la montagna più alta? -> everest
+
+domanda -> Inca, Azteco, Egiziano, Romano: quale impero non aveva lingua scritta? -> inca
+
+domanda -> Avventurieri, sapete dirmi il nome del fiume più lungo del mondo? -> nilo
+
+domanda -> VERO o FALSO? Nel film "Matrix", il protagonista Anderson (aka Neo) è un carpentiere? -> falso
+
+domanda -> VERO o FALSO? I coccodrilli talvolta mangiano sassi -> vero
+
+domanda -> VERO o FALSO? Il raggio approssimativo della Terra è 4000 miglia (approssimato) -> vero
