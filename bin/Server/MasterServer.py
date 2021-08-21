@@ -42,23 +42,24 @@ def accetta_connessioni_in_entrata():
         client.send(bytes(gameModel.randomSaluti(), "utf8"))
         client.send(bytes(Game.WELCOME, "utf8"))
 
+        # messaggio che avvisa gli altri giocatori se entra qualcuno
+        
+        nome = client.recv(Model.BUFSIZ).decode("utf8")
+        msg = "%s si è unito al gioco!" % nome
+        sendBroadcastWithout(client, bytes(msg, "utf8"))
+
+        modelServer.clients[client] = nome
+        gameModel.playersPoint[nome] = 0;
+
+        
+        gameModel.playersRuolo[nome] = gameModel.randomRuolo();
+        guiServer.updateDisplay(gameModel.playersPoint, gameModel.playersRuolo)
+
         Thread(target = gestice_client, args = (client,)).start()
 
 
 """La funzione seguente gestisce la connessione di un singolo client."""
 def gestice_client(client):  # Prende il socket del client come argomento della funzione.
-
-    nome = client.recv(Model.BUFSIZ).decode("utf8")
-    client.send(bytes("Tu: " + nome, "utf8"))
-
-    modelServer.clients[client] = nome
-    gameModel.playersPoint[nome] = 0;
-    gameModel.playersRuolo[nome] = gameModel.randomRuolo();
-    guiServer.updateDisplay(gameModel.playersPoint, gameModel.playersRuolo)
-
-    # messaggio che avvisa gli altri giocatori se entra qualcuno
-    msg = "%s si è unito al gioco!" % nome
-    sendBroadcastWithout(client, bytes(msg, "utf8"))
 
     questions = saveAndSendChoise(client);
 
@@ -81,7 +82,7 @@ def gestice_client(client):  # Prende il socket del client come argomento della 
             questionChoice = ""
         
         if (msg == bytes("quit", "utf8") or questionChoice == Game.LOSE):
-            clientQuit(client, nome)
+            clientQuit(client, modelServer.clients[client])
             break;
 
 

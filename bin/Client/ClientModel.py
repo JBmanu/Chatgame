@@ -23,6 +23,15 @@ class ClientModel():
             print("ERROR!!! Cannot connect to host: " + self.HOST + " on port: " + str(self.PORT) + " Server may be Unavailable. Try again later")
 
 
+    def checkLogic(self, host, port, nick):
+
+        if (host == self.HOST and port == str(self.PORT)):
+            self.serverHost = host
+            self.serverPort = port
+            self.nickname = nick
+            return True
+
+        return False
 
 
 
