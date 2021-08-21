@@ -6,6 +6,7 @@ from GameModel import GameModel as Game
 from ServerModel import ServerModel as Model
 from ServerGUI import ServerGUI as GUI
 from threading import Thread
+from Timer import Timer
 
 from UtilitiesSC import UtilitiesSC as ServerClient
 
@@ -55,6 +56,7 @@ def accetta_connessioni_in_entrata():
 def gestice_client(client):  # Prende il socket del client come argomento della funzione.
 
     questions = saveAndSendChoise(client);
+
     stateAnswer = 0
     questionChoice = ""
 

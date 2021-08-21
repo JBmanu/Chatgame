@@ -4,6 +4,7 @@ from ChatGUI import ChatApplication as ChatGUI
 from LoginGUI import LoginApplication as LoginGUI
 from UtilitiesSC import UtilitiesSC as ServerClient
 
+from Timer import Timer 
 from threading import Thread
 
 chatGUI = ChatGUI();
@@ -65,6 +66,7 @@ def receive():
             #quando viene chiamata la funzione receive, si mette in ascolto dei messaggi che arrivano sul socket
             msg = client.socket.recv(ServerClient.BUFSIZ).decode("utf8")
             chatGUI.insertMsgFromTextToChat(msg)
+
         except OSError:  
             break
 
