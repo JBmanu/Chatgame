@@ -50,6 +50,8 @@ def accetta_connessioni_in_entrata():
 
         modelServer.clients[client] = nome
         gameModel.playersPoint[nome] = 0;
+
+        
         gameModel.playersRuolo[nome] = gameModel.randomRuolo();
         guiServer.updateDisplay(gameModel.playersPoint, gameModel.playersRuolo)
 
