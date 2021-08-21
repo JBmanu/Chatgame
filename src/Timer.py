@@ -30,10 +30,6 @@ class Timer():
     def endTIme(self):
         return self.END_TIME;
 
-
-time = Timer();
-time.startTimer()
-
     
 
 

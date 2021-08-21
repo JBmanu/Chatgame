@@ -77,6 +77,10 @@ def gestice_client(client):  # Prende il socket del client come argomento della 
         if (msg == bytes("quit", "utf8") or questionChoice == Game.LOSE):
             clientQuit(client, modelServer.clients[client])
             break;
+        
+        if (msg == bytes("tempo", "utf8")):
+            # ci han dra se tutti i giocatori hanno finito il tempo calcola il vincitore
+            pass
 
 
 """ La funzione, che segue, invia un messaggio in broadcast a tutti i client."""

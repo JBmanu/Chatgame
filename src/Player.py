@@ -9,6 +9,7 @@ from threading import Thread
 
 chatGUI = ChatGUI();
 loginGUI = LoginGUI();
+timer = Timer();
 client = Model();
 
 loginGUI.pulsante_login.config(command = lambda: startConnection());
@@ -34,6 +35,7 @@ def startConnection():
         loginGUI.destroy();
         chatGUI.deiconify();
 
+        Thread(target = printTImer(client)).start()
         Thread(target = receive).start()
     else:
         loginGUI.cleanEntryLogin();
@@ -61,6 +63,7 @@ chatGUI.msg_entry.bind("<Return>", send)
 
 # Funzione per la ricezione dei messaggi dal server al client
 def receive():
+
     while True:
         try:
             #quando viene chiamata la funzione receive, si mette in ascolto dei messaggi che arrivano sul socket
@@ -75,6 +78,18 @@ def receive():
 def quitGame():
     client.socket.close();
     chatGUI.destroy();
+
+
+def printTImer(client):
+    timer.startTimer();
+    #qua dovrai mettere la label = timer.time
+    
+    if(timer.startTimer() <= 0):
+        msg = "Hai finito il tempo, HAI PERSO!! \n"
+        chatGUI.insertMsgFromTextToChat(msg)
+
+        #tempo sara la parola chiave che il client manda al server per dire che ha finito il tempo
+        client.socket.send(bytes("tempo", "utf8"))
 
 
 chatGUI.mainloop();
