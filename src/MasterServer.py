@@ -80,6 +80,7 @@ def gestice_client(client):  # Prende il socket del client come argomento della 
         
         if (msg == bytes("tempo", "utf8")):
             # ci han dra se tutti i giocatori hanno finito il tempo calcola il vincitore
+            print("ho ricevuto il tuo tempo hai perso")
             pass
 
 

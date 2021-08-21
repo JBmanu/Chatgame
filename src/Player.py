@@ -6,6 +6,7 @@ from UtilitiesSC import UtilitiesSC as ServerClient
 
 from Timer import Timer 
 from threading import Thread
+from time import sleep
 
 chatGUI = ChatGUI();
 loginGUI = LoginGUI();
@@ -35,7 +36,7 @@ def startConnection():
         loginGUI.destroy();
         chatGUI.deiconify();
 
-        Thread(target = printTImer(client)).start()
+        Thread(target = printTImer).start()
         Thread(target = receive).start()
     else:
         loginGUI.cleanEntryLogin();
@@ -80,12 +81,16 @@ def quitGame():
     chatGUI.destroy();
 
 
-def printTImer(client):
+def printTImer():
     while True:
-        timer.startTimer();
+        print("Sto stampandoooooo")
         #qua dovrai mettere la label = timer.time
-        
-        if(timer.startTimer() <= 0):
+        timer.decrTime()
+        print(str(timer.time))
+
+        sleep(1)
+        if(timer.time <= 0):
+            print("sono entrato nel fine time")
             msg = "Hai finito il tempo, HAI PERSO!! \n"
             chatGUI.insertMsgFromTextToChat(msg)
 
