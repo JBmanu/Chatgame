@@ -6,9 +6,9 @@ class ChatApplication(tk.Tk):
     def __init__(self):
         super().__init__();
         self.title("Chat Game")
-        self.resizable(width = False, height = False)
+        # self.resizable(width = False, height = False)
         self.configure(width = 500, height = 550, bg = Utils.BG_COLOR)
-        self.withdraw();
+        # self.withdraw();
         
         #head label
         self.head_label = tk.Label(self, bg = Utils.BG_COLOR, fg = Utils.TEXT_COLOR,
@@ -20,15 +20,20 @@ class ChatApplication(tk.Tk):
         self.line.place(relwidth = 1, rely = 0.07, relheight = 0.012)
         
         #widget di testo
+
         self.text_widget = tk.Text(self, width = 20, height = 2, bg = Utils.BG_COLOR, fg = Utils.TEXT_COLOR,
                                 font = Utils.FONT, padx = 5, pady = 5)
-        self.text_widget.place(relheight = 0.645, relwidth = 1, rely = 0.08)
+        self.text_widget.place(relheight = 0.645, relwidth = 1, rely = 0.08, relx = 0.95)
         self.text_widget.configure(cursor = "arrow", state = tk.DISABLED)
-        
+        # self.text_widget.pack(side=tk.LEFT, fill=tk.Y, padx=(10, 0));
+
         #barra di scorrimento
         self.scrollbar = tk.Scrollbar(self.text_widget)
-        self.scrollbar.place(relheight = 1, relx = 0.974)
+        self.scrollbar.place(relheight = 1,relx = 0.95)
         self.scrollbar.configure(command = self.text_widget.yview)
+        self.scrollbar.pack(side=tk.RIGHT, fill=tk.Y);
+
+
         
         #label in basso
         self.bottom_label = tk.Label(self, bg = Utils.BG_GRAY, height = 80)
@@ -64,16 +69,12 @@ class ChatApplication(tk.Tk):
         self.pulsante_c.place(relx = 0.68, rely = 0.2, relheight = 0.7, relwidth = 0.22)
         
         
-    def _premere_Char(self, char):
-        self._inserisci_messaggio(char, "Tu")
-        
-        
     def _inserisci_messaggio(self, msg, sender):
         if not msg:
             return
         
         self.msg_entry.delete(0, tk.END)
-        msg1  =  f"{sender}: {msg}\n"
+        msg1  =  f"{sender}: {msg}\n\n"
         self.text_widget.configure(cursor = "arrow", state = tk.NORMAL)
         self.text_widget.insert(tk.END, msg1)
         self.text_widget.configure(state = tk.DISABLED)
@@ -84,3 +85,8 @@ class ChatApplication(tk.Tk):
         self.text_widget.configure(state = tk.NORMAL)
         self.text_widget.insert(tk.END, msg)
         self.text_widget.configure(state = tk.DISABLED)
+
+
+gui = ChatApplication();
+
+gui.mainloop()

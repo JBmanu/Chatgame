@@ -45,7 +45,7 @@ class ServerGUI(tk.Tk):
         scrollBar.pack(side=tk.RIGHT, fill=tk.Y);
 
         Utility.unionDisplayWitchScrollBar(self.tkDisplay, scrollBar, 20, 40, "#F4F6F7", "grey", "disabled");
-        listFrame.pack(side=tk.BOTTOM, pady=(5, 10))
+        
 
 
     def startBtns(self):
@@ -65,10 +65,13 @@ class ServerGUI(tk.Tk):
 
     
     def updateDisplay(self, gamers, ruoli):
-        self.tkDisplay.config(state = tk.NORMAL, spacing2 = "30")
-        self.tkDisplay.delete('2.0', tk.END)
+        self.tkDisplay.config(state = tk.NORMAL)
+        self.tkDisplay.delete('1.0', tk.END)
 
         for k, v in gamers.items():
-            self.tkDisplay.insert(tk.END, ruoli[k] + " => " + k + " " + str(v) + "\n")
+            
+            print(ruoli[k])
+            text = ruoli[k] + " => " + k + " " + str(v);
+            self.tkDisplay.insert(tk.END, text + "\n")
 
         self.tkDisplay.config(state=tk.DISABLED)
