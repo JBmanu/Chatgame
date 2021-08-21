@@ -81,15 +81,17 @@ def quitGame():
 
 
 def printTImer(client):
-    timer.startTimer();
-    #qua dovrai mettere la label = timer.time
-    
-    if(timer.startTimer() <= 0):
-        msg = "Hai finito il tempo, HAI PERSO!! \n"
-        chatGUI.insertMsgFromTextToChat(msg)
+    while True:
+        timer.startTimer();
+        #qua dovrai mettere la label = timer.time
+        
+        if(timer.startTimer() <= 0):
+            msg = "Hai finito il tempo, HAI PERSO!! \n"
+            chatGUI.insertMsgFromTextToChat(msg)
 
-        #tempo sara la parola chiave che il client manda al server per dire che ha finito il tempo
-        client.socket.send(bytes("tempo", "utf8"))
+            #tempo sara la parola chiave che il client manda al server per dire che ha finito il tempo
+            client.socket.send(bytes("tempo", "utf8"))
+            break;
 
 
 chatGUI.mainloop();
