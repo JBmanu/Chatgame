@@ -8,3 +8,10 @@ class UtilitiesSC():
     SERVER_LISTENING = 5;
 
     UTF = "utf16"
+
+    KEY_TIME = "time";
+    KEY_QUIT = "quit"
+
+    KEY_END_TIME = "Ho finito il tempo";
+
+    ERROR_DATA = "Dati sbagliati, ritenta"

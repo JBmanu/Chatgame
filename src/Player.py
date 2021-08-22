@@ -14,7 +14,6 @@ timer = Timer();
 client = Model();
 
 loginGUI.pulsante_login.config(command = lambda: startConnection());
-
 chatGUI.pulsante_invio.config(command = lambda : send())
 
 chatGUI.pulsante_a.config(command = lambda : sendDefaultChar("a"))
@@ -40,7 +39,7 @@ def startConnection():
         Thread(target = receive).start()
     else:
         loginGUI.cleanEntryLogin();
-        loginGUI.login_head_label.config(text = "Dati sbagliati, scemo")
+        loginGUI.login_head_label.config(text = ServerClient.ERROR_DATA)
 
 
 # Funzione per l'invio predefinito per la scelta della domanda
@@ -82,21 +81,23 @@ def quitGame():
 
 
 def printTImer():
-    while True:
+    end = 0;
+    while end == 0:
         #qua dovrai mettere la label = timer.time
         #chatGUI.timer_label.configure()
         #^ho provato a passargliela ma non mi va un cazzo, ho provato tutto, risulta sempre vuota
+        chatGUI.timer_label.config(text = "coacac" );
         timer.decrTime()
         sleep(1)
 
-        if(timer.time <= 0):
+        if(timer.time == 0):
             chatGUI.disabledButtons();
-            msg = "Hai finito il tempo, HAI PERSO!! \n"
+            msg = ServerClient.KEY_END_TIME + '\n\n'
             chatGUI.insertMsgFromTextToChat(msg)
 
             #tempo sara la parola chiave che il client manda al server per dire che ha finito il tempo
-            client.socket.send(bytes("tempo", "utf8"))
-            break;
+            client.socket.send(bytes(ServerClient.KEY_TIME, "utf8"))
+            end = 1;
 
 
 chatGUI.mainloop();

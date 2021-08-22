@@ -5,10 +5,9 @@ from random import choice
 from GameModel import GameModel as Game
 from ServerModel import ServerModel as Model
 from ServerGUI import ServerGUI as GUI
-from threading import Thread
-from Timer import Timer
-
 from UtilitiesSC import UtilitiesSC as ServerClient
+from threading import Thread
+
 
 guiServer = GUI();
 modelServer = Model();
@@ -18,129 +17,109 @@ guiServer.btnStart.config(command = lambda : startServer());
 guiServer.btnStop.config(command = lambda : stopServer());
 
 
+""" Funzione che si attiva quando si preme il bottone start """
 def startServer():
     gameModel.readQuestionFromFile();
     modelServer.openSocket();
     guiServer.startBtns();
-    ACCEPT_THREAD = Thread(target=accetta_connessioni_in_entrata)
+    ACCEPT_THREAD = Thread(target = ecceptEntryConnection)
     ACCEPT_THREAD.start()
 
 
+""" Funzione che si attiva quando si preme il bottone stop """
 def stopServer():
     print("Stopping server")
     modelServer.server.close();
     guiServer.stopBtns();
+    guiServer.destroy();
     
 
-""" La funzione che segue accetta le connessioni  dei client in entrata."""
-def accetta_connessioni_in_entrata():
-    while True:
-        # Accetto connessione e salvo indirizzo
-        client, client_address = modelServer.server.accept()
-        modelServer.address[client] = client_address
+""" La funzione che segue accetta le connessioni dei client in entrata."""
+def ecceptEntryConnection():
+    state = 0
+    while state == 0:
+        try:
+            client, address = modelServer.server.accept()
+        except OSError:
+            state = 1
+
 
         # avvisa e salva il nickname del giocatore
         name = client.recv(ServerClient.BUFSIZ).decode("utf8")
-        msg = "%s si è unito al gioco! \n"  % name
-        sendBroadcastWithout(client, bytes(msg, "utf8"))
-        insertDataClient(client, name)
+        modelServer.sendEnterGameMsg(client, name)
+        insertDataClientInGame(client, name, address)
 
         # al client che si connette per la prima volta fornisce alcune indicazioni di utilizzo
-        client.send(bytes(gameModel.randomSaluti(), "utf8"))
-        client.send(bytes(Game.WELCOME + "Il tuo ruolo sara => " + gameModel.playersRuolo[name] , "utf8"))
+        modelServer.sendStringMsgToClient(client, gameModel.randomSaluti())
+        modelServer.sendStringMsgToClient(client, Game.INFO + Game.RUOLO + gameModel.playersRuolo[name])
          
-        Thread(target = gestice_client, args = (client,)).start()
+        Thread(target = manageClient, args = (client,)).start()
 
 
-"""La funzione seguente gestisce la connessione di un singolo client."""
-def gestice_client(client):  # Prende il socket del client come argomento della funzione.
-
-    questions = saveAndSendChoise(client);
-
+"""La funzione seguente gestisce la connessione di un singolo client per il gioco """
+def manageClient(client): 
+    questions = saveAndSendChoises(client);
     stateAnswer = 0
     questionChoice = ""
 
-    #si mette in ascolto del thread del singolo client e ne gestisce l'invio dei messaggi o l'uscita dalla Chat
     while True:
         msg = client.recv(ServerClient.BUFSIZ)
-        answer = msg.decode("utf8") 
+        decodeMsg = msg.decode("utf8") 
 
-        if (msg == bytes("tempo", "utf8")):
-            print("ho ricevuto il tuo tempo hai perso")
-            gameModel.playersEndTIme += 1;
-            if (gameModel.allPlayersEndTIme()):
-                winner = gameModel.winner();
-                msgWinner = "Ha vinto: " + winner[0] + " con " + winner[1] + "punti"
-                print(msgWinner)
-                # sendBroadcastToClients(bytes(msgWinner, "utf8"))
+        if (msg == bytes(ServerClient.KEY_END_TIME, "utf8")):
+            gameModel.incrPlayerEndTIme();
+
+            if (gameModel.isAllPlayersEndTIme()):
+                winner = gameModel.findWinner();
+                modelServer.sendBroadcast(bytes(gameModel.generateMsgWinner(winner), "utf8"))
+                modelServer.closeAllConnections();
 
         if (stateAnswer == 0):
-            questionChoice = actionChoise(client, answer, questions);
+            questionChoice = sendChoise(client, decodeMsg, questions);
             stateAnswer = 1
         else: 
             stateAnswer = 0
-            sendWrongOrCorrect(client, questionChoice, answer)
-            questions = saveAndSendChoise(client)
+            sendWrongOrCorrect(client, questionChoice, decodeMsg)
+            questions = saveAndSendChoises(client)
             questionChoice = ""
         
-        if (msg == bytes("quit", "utf8") or questionChoice == Game.LOSE):
-            clientQuit(client, modelServer.clients[client])
+        if (msg == bytes(ServerClient.KEY_QUIT, "utf8") or questionChoice == Game.LOSE):
+            modelServer.clientQuit(client)
             break;
-        
-        if (msg == bytes("tempo", "utf8")):
-            # ci han dra se tutti i giocatori hanno finito il tempo calcola il vincitore
-            print("ho ricevuto il tuo tempo hai perso")
-            
-            gameModel.playersEndTIme += 1;
 
 
-""" La funzione, che segue, invia un messaggio in broadcast a tutti i client."""
-def sendBroadcastToClients(msg, prefisso=""):  # il prefisso è usato per l'identificazione del nome.
-    for utente in modelServer.clients:
-        utente.send(bytes(prefisso, "utf8")+msg)
-
-
-def sendBroadcastWithout(client, msg, prefisso=""):
-    for utente in modelServer.clients:
-        if (utente != client):
-            utente.send(bytes(prefisso, "utf8")+msg)
-
-
-def clientQuit(client, nome):
-    sendBroadcastToClients(bytes("%s ci lascia, ha perso \n" % nome, "utf8"))
-    del modelServer.clients[client]
-    #elimino solo la connession ma non il dizionazio dei giocatori perche serve per il punteggio
-    guiServer.updateDisplay(gameModel.playersPoint, gameModel.playersRuolo)
-    client.close()
-
-
-def actionChoise(client, answer, questions):
+""" La funzione che manda la scelta del client """
+def sendChoise(client, answer, questions):
     for k, v in gameModel.choises.items(): 
         if(answer < v):
-            client.send(bytes(answer + ": " + questions[k], "utf8"))
+            modelServer.sendStringMsgToClient(client, answer + ": " + questions[k])
             choice = questions[k]
             return choice
 
 
-def saveAndSendChoise(client):
-    client.send(bytes((Model.HEADER + Game.CHOICES + '\n'), "utf8"))
+""" La funzione che manda la proposta delle scelte al client e ritorna la lista delle domande associate alle possibili scelte """
+def saveAndSendChoises(client):
+    modelServer.sendStringMsgToClient(client, (Model.HEADER + Game.CHOICES));
     return gameModel.questionForGame();
 
 
+""" La funzione manda la stringa se la risposta e giusta o meno e assegna il punteggio """
 def sendWrongOrCorrect(client, questionChoice, answer):
     if (questionChoice != "" and answer == gameModel.questionAnswer[questionChoice]):
-        client.send(bytes(Game.CORRECT + "\n", "utf8"))
-        gameModel.playersPoint[modelServer.clients[client]] += 1
-        guiServer.updateDisplay(gameModel.playersPoint, gameModel.playersRuolo)
+        modelServer.sendStringMsgToClient(client, Game.CORRECT);
+        gameModel.incrPlayerPoint(modelServer.sockets[client])
         
     elif(questionChoice != ""):
-        client.send(bytes(Game.WRONG + "\n", "utf8"))
-        gameModel.playersPoint[modelServer.clients[client]] -= 1
-        guiServer.updateDisplay(gameModel.playersPoint, gameModel.playersRuolo)
+        modelServer.sendStringMsgToClient(client, Game.WRONG)
+        gameModel.decrPlayerPoint(modelServer.sockets[client])
+
+    guiServer.updateDisplay(gameModel.playersPoint, gameModel.playersRuolo)
 
 
-def insertDataClient(client, name):
-    modelServer.clients[client] = name
+""" La funzione inserisce i dati del client assegnadoli il punteggio, ruolo """
+def insertDataClientInGame(client, name, address):
+    modelServer.address[client] = address
+    modelServer.sockets[client] = name
     gameModel.playersPoint[name] = 0;
     gameModel.playersRuolo[name] = gameModel.randomRuolo();
 

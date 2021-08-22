@@ -31,3 +31,5 @@ domanda -> VERO o FALSO? Nel film "Matrix", il protagonista Anderson (aka Neo) e
 domanda -> VERO o FALSO? I coccodrilli talvolta mangiano sassi -> vero
 
 domanda -> VERO o FALSO? Il raggio approssimativo della Terra e 4000 miglia (approssimato) -> vero
+
+domanda -> Qual e la cosa che ti segue sempre ma che non la si puo prendere -> ombra

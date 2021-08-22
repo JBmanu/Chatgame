@@ -1,3 +1,7 @@
+"""
+@author: buizo
+"""
+
 from socket import AF_INET, socket, SOCK_STREAM
 from ServerModel import ServerModel as Server
 

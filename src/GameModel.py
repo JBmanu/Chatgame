@@ -5,7 +5,8 @@ import os
 from random import *
 
 class GameModel():
-    WELCOME = 'Info: Per uscire, scrivi -quit- \n\n'
+    INFO = 'Info: Per uscire, scrivi -quit- \n\n'
+    RUOLO = "Il tuo ruolo sara => "
 
     CHOICES = "Scegli tra a b c"
 
@@ -13,6 +14,7 @@ class GameModel():
     WRONG = "Sbagliato -1"
     LOSE = "HAI PERSO"
 
+    FILE = os.path.join("domande.txt")
 
     def __init__(self):
         self.choises = { 0 : "aA", 1 : "bB", 2 : "cC"};
@@ -26,10 +28,9 @@ class GameModel():
 
         self.playersEndTIme = 0
 
-        
+    """ Legge il file per avere le stringhe di: saluto, ruolo, domanda-risposta """
     def readQuestionFromFile(self):
-        # Ho usato path join per avere il path compatibili per piu S.O
-        self.f = open(os.path.join("domande.txt"));
+        self.f = open(self.FILE);
 
         for line in self.f.readlines():
             splitString = line.split(" -> ");
@@ -48,25 +49,30 @@ class GameModel():
         self.f.close();
 
 
+    """ Ritorna un saluto random """
     def randomSaluti(self):
         return self.saluti[randint(0, len(self.saluti) - 1)];
 
 
+    """ Ritorna un ruolo random """
     def randomRuolo(self):
         return self.ruoli[randint(0, len(self.ruoli) - 1)];
 
 
+    """ Ritorna una domanda random """
     def randomQuestion(self):
         listQuestion = []
         listQuestion.extend(self.questionAnswer.keys())
         return listQuestion[randint(0, len(listQuestion) - 1)]
 
 
+    """ In una lista di domande ne cambia una il HAI PERSO """
     def inserChoiceLose(self, questions):
         questions[randint(0, 2)] = self.LOSE;
         print(questions)
         
 
+    """ Genera una lista con di domande per il gioco """
     def questionForGame(self):
         questions = [self.randomQuestion(), self.randomQuestion(), self.randomQuestion()]
         self.inserChoiceLose(questions)
@@ -74,28 +80,40 @@ class GameModel():
         return questions
 
     
+    """ Incrementa i giocatori che hanno finito il tempo """
     def incrPlayerEndTIme(self):
         self.playersEndTIme += 1;
 
     
-    def allPlayersEndTIme(self):
-        return self.playersEndTIme == (len(self.playersPoint))
+    """ Ritorna se tutti i giocatori hanno finito il tempo"""
+    def isAllPlayersEndTIme(self):
+        lenghPlayers = len(self.playersPoint)
+        return self.playersEndTIme == lenghPlayers
 
 
-    def winner(self):
+    """ Funnzion che ritorna una tupla del giocatore che ha vinto e i punti"""
+    def findWinner(self):
         self.name = "manu";
         self.point = -999;
 
         for k, v in self.playersPoint.items():
-            print("Controllo i punti dei giocatoriiiii")
             if(v > self.point):
                 self.point = v;
                 self.name = k
-                print("controlloooo -> " + self.point)
 
         return (self.name, self.point)
             
+            
+    """ Genera il messaggio da inviare ai giocatori di chi ha vinto """
+    def generateMsgWinner(self, winner):
+        return "Ha vinto: " + winner[0] + " con " + str(winner[1]) + " punti"
 
+    
+    """ Incrementa di un il punteggio di un giocatore """
+    def incrPlayerPoint(self, name):
+        self.playersPoint[name] += 1
 
-
-   
+    
+    """ Decrementa di un il punteggio di un giocatore """
+    def decrPlayerPoint(self, name):
+        self.playersPoint[name] -= 1

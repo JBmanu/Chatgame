@@ -3,7 +3,6 @@
 """
 from ServerModel import ServerModel
 from UtilitiesGUI import UtilitiesGUI as Utility
-from UtilitiesSC import UtilitiesSC as ServerClient
 import tkinter as tk
 
 
@@ -49,6 +48,7 @@ class ServerGUI(tk.Tk):
         listFrame.pack(side=tk.BOTTOM, pady=(5, 10))
 
 
+    """ funzione per l'attivazione del bottone start """
     def startBtns(self):
         self.btnStart.config(state=tk.DISABLED)
         self.btnStop.config(state=tk.NORMAL)
@@ -56,7 +56,8 @@ class ServerGUI(tk.Tk):
         self.lblHost.config(text = Utility.ADDRESS + ServerModel.ADDR)
         self.lblPort.config(text = Utility.PORT + str(ServerModel.PORT))
 
-    
+
+    """ funzione per l'attivazione del bottone stop """
     def stopBtns(self):
         self.btnStart.config(state=tk.NORMAL)
         self.btnStop.config(state=tk.DISABLED)
@@ -65,6 +66,7 @@ class ServerGUI(tk.Tk):
         self.lblPort.config(text = Utility.PORT_NONE)
 
     
+    """ Funzione del l'aggiornamento dei dati dei client che si son connessi """
     def updateDisplay(self, gamers, ruoli):
         self.tkDisplay.config(state = tk.NORMAL)
         self.tkDisplay.delete('1.0', tk.END)
@@ -72,7 +74,7 @@ class ServerGUI(tk.Tk):
         for k, v in gamers.items():
             
             print(ruoli[k])
-            text = ruoli[k] + " => " + k + " " + str(v);
-            self.tkDisplay.insert(tk.END, text + "\n")
+            text = "Points: " + str(v) + " => " + k + " - " + ruoli[k] + '\n';
+            self.tkDisplay.insert(tk.END, text)
 
         self.tkDisplay.config(state=tk.DISABLED)
