@@ -23,6 +23,9 @@ class GameModel():
 
         self.playersRuolo = {};
         self.playersPoint = {};
+
+        self.playersEndTIme = 0
+
         
     def readQuestionFromFile(self):
         # Ho usato path join per avere il path compatibili per piu S.O
@@ -69,5 +72,30 @@ class GameModel():
         self.inserChoiceLose(questions)
 
         return questions
+
+    
+    def incrPlayerEndTIme(self):
+        self.playersEndTIme += 1;
+
+    
+    def allPlayersEndTIme(self):
+        return self.playersEndTIme == (len(self.playersPoint))
+
+
+    def winner(self):
+        self.name = "manu";
+        self.point = -999;
+
+        for k, v in self.playersPoint.items():
+            print("Controllo i punti dei giocatoriiiii")
+            if(v > self.point):
+                self.point = v;
+                self.name = k
+                print("controlloooo -> " + self.point)
+
+        return (self.name, self.point)
+            
+
+
 
    

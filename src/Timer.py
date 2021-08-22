@@ -4,7 +4,7 @@ import threading as Thread
 
 class Timer():
     
-    TIMER = 10;
+    TIMER = 20;
     END_TIME = -1;
 
     MSG = "Ho finito il tempo"

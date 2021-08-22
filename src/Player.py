@@ -83,14 +83,12 @@ def quitGame():
 
 def printTImer():
     while True:
-        print("Sto stampandoooooo")
         #qua dovrai mettere la label = timer.time
         timer.decrTime()
-        print(str(timer.time))
-
         sleep(1)
+
         if(timer.time <= 0):
-            print("sono entrato nel fine time")
+            chatGUI.disabledButtons();
             msg = "Hai finito il tempo, HAI PERSO!! \n"
             chatGUI.insertMsgFromTextToChat(msg)
 
