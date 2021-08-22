@@ -50,11 +50,11 @@ class ChatApplication(tk.Tk):
         self.scrollbar.configure(command = self.text_widget.yview)
 
         #label in basso
-        self.bottom_label = tk.Label(self, bg = Utils.BG_GRAY, height = 80)
+        self.bottom_label = tk.Label(self, bg = Utils.GUI_BG, height = 80)
         self.bottom_label.place(relwidth = 1, rely = 0.825)
         
         #label per i tasti a, b e c
-        self.under_label = tk.Label(self, height = 4, bg = Utils.BG_GRAY)
+        self.under_label = tk.Label(self, height = 4, bg = Utils.GUI_BG)
         self.under_label.place(relwidth = 1, rely = 0.723)
         
         

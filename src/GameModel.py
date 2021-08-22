@@ -26,7 +26,7 @@ class GameModel():
         self.playersRuolo = {};
         self.playersPoint = {};
 
-        self.playersEndTIme = 0
+        self.playersEndTime = 0
 
     """ Legge il file per avere le stringhe di: saluto, ruolo, domanda-risposta """
     def readQuestionFromFile(self):
@@ -81,12 +81,12 @@ class GameModel():
 
     
     """ Incrementa i giocatori che hanno finito il tempo """
-    def incrPlayerEndTIme(self):
+    def incrPlayerEndTime(self):
         self.playersEndTIme += 1;
 
     
     """ Ritorna se tutti i giocatori hanno finito il tempo"""
-    def isAllPlayersEndTIme(self):
+    def isAllPlayersEndTime(self):
         lenghPlayers = len(self.playersPoint)
         return self.playersEndTIme == lenghPlayers
 

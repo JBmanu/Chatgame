@@ -3,6 +3,7 @@ from ClientModel import ClientModel as Model
 from ChatGUI import ChatApplication as ChatGUI
 from LoginGUI import LoginApplication as LoginGUI
 from UtilitiesSC import UtilitiesSC as ServerClient
+from GameModel import GameModel as Game
 
 from Timer import Timer 
 from threading import Thread
@@ -63,12 +64,15 @@ chatGUI.msg_entry.bind("<Return>", send)
 
 # Funzione per la ricezione dei messaggi dal server al client
 def receive():
-
-    while True:
+    state = 0
+    while state == 0:
         try:
             #quando viene chiamata la funzione receive, si mette in ascolto dei messaggi che arrivano sul socket
             msg = client.socket.recv(ServerClient.BUFSIZ).decode("utf8")
-            chatGUI.insertMsgFromTextToChat(msg)
+            chatGUI.insertMsgFromTextToChat(msg)    
+
+            if(msg == Game.LOSE or msg > "Ha vinto:"):
+                state = 1;
 
         except OSError:  
             break
@@ -77,7 +81,9 @@ def receive():
 # per uscire dalla partita
 def quitGame():
     client.socket.close();
+    loginGUI.destroy();
     chatGUI.destroy();
+
 
 
 def printTImer():

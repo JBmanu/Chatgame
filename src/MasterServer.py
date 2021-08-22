@@ -69,12 +69,13 @@ def manageClient(client):
             decodeMsg = msg.decode("utf8")
         
             if (msg == bytes(ServerClient.KEY_END_TIME, "utf8")):
-                gameModel.incrPlayerEndTIme();
+                gameModel.incrPlayerEndTime();
 
-                if (gameModel.isAllPlayersEndTIme()):
+                if (gameModel.isAllPlayersEndTime()):
                     winner = gameModel.findWinner();
                     modelServer.sendBroadcast(bytes(gameModel.generateMsgWinner(winner), "utf8"))
                     modelServer.closeAllConnections();
+                    
 
             if (stateAnswer == 0):
                 questionChoice = sendChoise(client, decodeMsg, questions);
@@ -86,7 +87,7 @@ def manageClient(client):
                 questionChoice = ""
             
             if (msg == bytes(ServerClient.KEY_QUIT, "utf8") or questionChoice == Game.LOSE):
-                modelServer.clientQuit(client)
+                modelServer.quitClient(client)
                 break;
         except ConnectionResetError:
             state = 1

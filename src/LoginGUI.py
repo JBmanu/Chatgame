@@ -7,7 +7,7 @@ class LoginApplication(tk.Tk):
         super().__init__();
         self.title("Login")
         self.resizable(width = False, height = False)
-        self.configure(width = 500, height = 350, bg = Utils.LOGIN_BG)
+        self.configure(width = 500, height = 350, bg = Utils.GUI_BG)
         
         
         #head label
@@ -45,11 +45,11 @@ class LoginApplication(tk.Tk):
         self.nick_label_fianco.place(relwidth = 0.7, relx = 0.25, rely = 0.585)
         
         #label pulsante login credenziale
-        self.pulsante_login_label = tk.Label(self, height = 3, bg = Utils.LOGIN_BG)
+        self.pulsante_login_label = tk.Label(self, height = 3, bg = Utils.GUI_BG)
         self.pulsante_login_label.place(relwidth = 1, rely = 0.825)
         
         #pulsante login
-        self.pulsante_login = tk.Button(self.pulsante_login_label, text = "Login", font = Utils.BTN_COLOR, width = 5, bg = Utils.BTN_COLOR)
+        self.pulsante_login = tk.Button(self.pulsante_login_label, text = "Login", font = Utils.FONT_H2, width = 5, bg = Utils.BTN_COLOR)
         self.pulsante_login.place(relx = 0.39, relheight = 1, relwidth = 0.22)
 
         #box inserimento testo HOST

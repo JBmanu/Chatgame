@@ -11,26 +11,26 @@ class ServerGUI(tk.Tk):
     def __init__(self):
         super().__init__();
         # creazione finestra server
-        Utility.configWindow(self, "purple", "400x500");
+        Utility.configWindow(self, Utility.GUI_BG, "400x500");
 
         # creazione del titolo della finestra del server
         titleFrame = tk.Frame(self).pack();
-        Utility.createLabel(titleFrame, Utility.FONT_H0, Utility.TITLE_SERVER, "purple", "white").pack();
+        Utility.createLabel(titleFrame, Utility.FONT_H0, Utility.TITLE_SERVER, Utility.GUI_BG, Utility.BG_COLOR).pack();
 
         # Creazione dei pulsanti per startare e fermare il server (btnStart, btnStop)
         btnFrame = tk.Frame(self);
 
-        self.btnStart = Utility.createBtnStart(btnFrame, Utility.FONT_H1, Utility.START, Utility.COLOR_LIGTH_GREEN, "white")
+        self.btnStart = Utility.createBtnStart(btnFrame, Utility.FONT_H1, Utility.START, Utility.COLOR_LIGTH_GREEN, Utility.BG_COLOR)
         self.btnStart.pack(side=tk.LEFT); 
-        self.btnStop = Utility.createBtnStop(btnFrame, Utility.FONT_H1, Utility.STOP, Utility.COLOR_LIGTH_RED, "white")
+        self.btnStop = Utility.createBtnStop(btnFrame, Utility.FONT_H1, Utility.STOP, Utility.COLOR_LIGTH_RED, Utility.BG_COLOR)
         self.btnStop.pack(side=tk.LEFT);
         btnFrame.pack(side=tk.TOP, pady=(5, 0))
 
         # Creazione di label per la visualizzazione address host e sulla porta
         infoFrame = tk.Frame(self)
-        self.lblHost = Utility.createLabel(infoFrame, Utility.FONT_H1, Utility.ADDRESS_NONE, "purple", "white")
+        self.lblHost = Utility.createLabel(infoFrame, Utility.FONT_H1, Utility.ADDRESS_NONE,  Utility.GUI_BG, Utility.BG_COLOR)
         self.lblHost.pack(side=tk.LEFT);
-        self.lblPort =  Utility.createLabel(infoFrame, Utility.FONT_H1, Utility.PORT_NONE, "purple", "white")
+        self.lblPort =  Utility.createLabel(infoFrame, Utility.FONT_H1, Utility.PORT_NONE,  Utility.GUI_BG, Utility.BG_COLOR)
         self.lblPort.pack(side=tk.LEFT);
         infoFrame.pack(side=tk.TOP, pady=(5, 0))
 

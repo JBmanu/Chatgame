@@ -20,8 +20,8 @@ class UtilitiesGUI():
 
     COLOR_LIGTH_GREEN = "#99ff99";
     COLOR_LIGTH_RED = "#ff8080";
-
-    LOGIN_BG = "#BC8F8F"
+    
+    GUI_BG = "#6495ED"
     BG_GRAY = "#ABB2B9"
     BG_COLOR = "#17202A"
     TEXT_COLOR = "#EAECEE"
