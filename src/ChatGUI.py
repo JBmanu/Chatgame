@@ -105,3 +105,10 @@ class ChatApplication(tk.Tk):
         self.text_widget.configure(state = tk.NORMAL)
         self.text_widget.insert(tk.END, msg)
         self.text_widget.configure(state = tk.DISABLED)
+
+    
+    def disabledButtons(self):
+        self.pulsante_invio.config(state = tk.DISABLED)
+        self.pulsante_a.config(state = tk.DISABLED)
+        self.pulsante_b.config(state = tk.DISABLED)
+        self.pulsante_c.config(state = tk.DISABLED)

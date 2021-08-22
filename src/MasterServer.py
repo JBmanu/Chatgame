@@ -65,6 +65,15 @@ def gestice_client(client):  # Prende il socket del client come argomento della 
         msg = client.recv(ServerClient.BUFSIZ)
         answer = msg.decode("utf8") 
 
+        if (msg == bytes("tempo", "utf8")):
+            print("ho ricevuto il tuo tempo hai perso")
+            gameModel.playersEndTIme += 1;
+            if (gameModel.allPlayersEndTIme()):
+                winner = gameModel.winner();
+                msgWinner = "Ha vinto: " + winner[0] + " con " + winner[1] + "punti"
+                print(msgWinner)
+                # sendBroadcastToClients(bytes(msgWinner, "utf8"))
+
         if (stateAnswer == 0):
             questionChoice = actionChoise(client, answer, questions);
             stateAnswer = 1
@@ -81,7 +90,8 @@ def gestice_client(client):  # Prende il socket del client come argomento della 
         if (msg == bytes("tempo", "utf8")):
             # ci han dra se tutti i giocatori hanno finito il tempo calcola il vincitore
             print("ho ricevuto il tuo tempo hai perso")
-            pass
+            
+            gameModel.playersEndTIme += 1;
 
 
 """ La funzione, che segue, invia un messaggio in broadcast a tutti i client."""
