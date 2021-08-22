@@ -19,8 +19,10 @@ class ChatApplication(tk.Tk):
         self.head_label.place(relwidth = 0.875)
         
         #timer label
-        self.timer_label = tk.Label(self, bg = Utils.BTN_COLOR, fg = Utils.TEXT_COLOR, font = Utils.FONT_H3, text = "ciao")
+        self.timer_label = tk.Label(self, bg = Utils.BTN_COLOR, fg = "black", font = Utils.FONT_H3, textvariable = "ciao")
         self.timer_label.place(relwidth = 0.14, relx = 0.875, relheight = 0.7)
+
+
         #qui ci ho passato nella label una textvariable dove dico la stringa timer.time, poi ho provato
         #senza stringa, ho provato tutto ma la label resta sempre vuota, mi sparo#
         
@@ -113,3 +115,6 @@ class ChatApplication(tk.Tk):
 
         self.msg_entry.delete(0, tk.END)
         self.msg_entry.configure(state = tk.DISABLED)
+
+    def insertTime(self, time):
+        self.timer_label.configure(text = time);

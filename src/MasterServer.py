@@ -58,34 +58,38 @@ def ecceptEntryConnection():
 
 """La funzione seguente gestisce la connessione di un singolo client per il gioco """
 def manageClient(client): 
+    state = 0
     questions = saveAndSendChoises(client);
     stateAnswer = 0
     questionChoice = ""
 
-    while True:
-        msg = client.recv(ServerClient.BUFSIZ)
-        decodeMsg = msg.decode("utf8") 
-
-        if (msg == bytes(ServerClient.KEY_END_TIME, "utf8")):
-            gameModel.incrPlayerEndTIme();
-
-            if (gameModel.isAllPlayersEndTIme()):
-                winner = gameModel.findWinner();
-                modelServer.sendBroadcast(bytes(gameModel.generateMsgWinner(winner), "utf8"))
-                modelServer.closeAllConnections();
-
-        if (stateAnswer == 0):
-            questionChoice = sendChoise(client, decodeMsg, questions);
-            stateAnswer = 1
-        else: 
-            stateAnswer = 0
-            sendWrongOrCorrect(client, questionChoice, decodeMsg)
-            questions = saveAndSendChoises(client)
-            questionChoice = ""
+    while state == 0:
+        try: 
+            msg = client.recv(ServerClient.BUFSIZ)
+            decodeMsg = msg.decode("utf8")
         
-        if (msg == bytes(ServerClient.KEY_QUIT, "utf8") or questionChoice == Game.LOSE):
-            modelServer.clientQuit(client)
-            break;
+            if (msg == bytes(ServerClient.KEY_END_TIME, "utf8")):
+                gameModel.incrPlayerEndTIme();
+
+                if (gameModel.isAllPlayersEndTIme()):
+                    winner = gameModel.findWinner();
+                    modelServer.sendBroadcast(bytes(gameModel.generateMsgWinner(winner), "utf8"))
+                    modelServer.closeAllConnections();
+
+            if (stateAnswer == 0):
+                questionChoice = sendChoise(client, decodeMsg, questions);
+                stateAnswer = 1
+            else: 
+                stateAnswer = 0
+                sendWrongOrCorrect(client, questionChoice, decodeMsg)
+                questions = saveAndSendChoises(client)
+                questionChoice = ""
+            
+            if (msg == bytes(ServerClient.KEY_QUIT, "utf8") or questionChoice == Game.LOSE):
+                modelServer.clientQuit(client)
+                break;
+        except ConnectionResetError:
+            state = 1
 
 
 """ La funzione che manda la scelta del client """

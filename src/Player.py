@@ -81,12 +81,13 @@ def quitGame():
 
 
 def printTImer():
+
     end = 0;
     while end == 0:
         #qua dovrai mettere la label = timer.time
         #chatGUI.timer_label.configure()
         #^ho provato a passargliela ma non mi va un cazzo, ho provato tutto, risulta sempre vuota
-        chatGUI.timer_label.config(text = "coacac" );
+        chatGUI.msg_entry.config(text = str(timer.time))
         timer.decrTime()
         sleep(1)
 
