@@ -6,7 +6,7 @@ from time import sleep
 
 class Timer():
     
-    TIMER = 20;
+    TIMER = 60;
     END_TIME = -1;
 
     def __init__(self):
