@@ -89,13 +89,15 @@ def manageClient(client):
                 questions = saveAndSendChoises(client)
                 questionChoice = ""
             
-            if (msg == bytes(ServerClient.KEY_QUIT, "utf8") or questionChoice == Game.LOSE):
+            if (questionChoice == Game.LOSE or msg == bytes(ServerClient.KEY_QUIT, "utf8")):
                 modelServer.quitClient(client)
                 gameModel.incrPlayerEndTime();
                 break;
                 
         except ConnectionResetError:
             state = 1
+
+            
 
 
 """ La funzione che manda la scelta del client """

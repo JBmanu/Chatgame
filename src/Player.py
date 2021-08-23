@@ -54,7 +54,7 @@ def send(event=None):
     msg = chatGUI.msg_entry.get();
 
     if(msg == "quit"):
-        quitGame();
+        chatGUI.destroy();
     else:
         chatGUI._inserisci_messaggio(msg, '\n\n' + "Tu");
         client.socket.send(bytes(msg, "utf8"))
@@ -74,7 +74,7 @@ def receive():
             if(msg == Game.LOSE or msg == Game.END or  msg == ServerClient.KEY_QUIT_SERVE):
                 sleep(5)
                 state = 1;
-                quitGame();
+                chatGUI.destroy();
 
         except OSError:  
             break
@@ -82,6 +82,7 @@ def receive():
 
 # per uscire dalla partita
 def quitGame():
+    client.socket.send(bytes(ServerClient.KEY_QUIT, "utf8"))
     chatGUI.destroy();
 
 
