@@ -72,7 +72,7 @@ domanda -> Vado avanti, vado indietro corro e mi fermo ma non cambio mai di post
 
 domanda -> Ti tiene in vita, ma lo vedi solo d'inverno. Cos'e'? -> fiato
 
-domanda -> Copiona e tutta nera ci sta attaccata da mattina a sera. Cos'é? -> ombra
+domanda -> Copiona e tutta nera ci sta attaccata da mattina a sera. Cos'e'? -> ombra
 
 domanda -> Sta dentro una casetta con il soffitto tondo, poi se ne fugge molto in fretta girando per il mondo. Ma certo, e' vero, si tratta del… -> pensiero
 
