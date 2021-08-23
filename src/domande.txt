@@ -1,6 +1,6 @@
-saluto -> Benvenuto al quiz per veri avventurieri, cerca di rispondere a piu domande possibili!
+saluto -> Benvenuto al quiz per veri avventurieri, cerca di rispondere a piu' domande possibili!
 
-saluto -> Saluti, questo e un quiz che mettera alla prova le tue conoscenze. Buona fortuna!
+saluto -> Saluti, questo e' un quiz che mettera' alla prova le tue conoscenze. Buona fortuna!
 
 ruolo -> alchimista
 
@@ -20,16 +20,36 @@ domanda -> Come si chiamava Istanbul fino al 1923? -> costantinopoli
 
 domanda -> Fattori, numeri atomici, numeri primi: quali sono i numeri divisibili solo per 1 e se stessi? -> numeri primi
 
-domanda -> Everest, Kilimanjaro, Aconcagua: quale tra questi e la montagna più alta? -> everest
+domanda -> Everest, Kilimanjaro, Aconcagua: quale tra questi e' la montagna più alta? -> everest
 
 domanda -> Inca, Azteco, Egiziano, Romano: quale impero non aveva lingua scritta? -> inca
 
 domanda -> Avventurieri, sapete dirmi il nome del fiume più lungo del mondo? -> nilo
 
-domanda -> VERO o FALSO? Nel film "Matrix", il protagonista Anderson (aka Neo) e un carpentiere? -> falso
+domanda -> VERO o FALSO? Nel film "Matrix", il protagonista Anderson (aka Neo) e' un carpentiere? -> falso
 
 domanda -> VERO o FALSO? I coccodrilli talvolta mangiano sassi -> vero
 
-domanda -> VERO o FALSO? Il raggio approssimativo della Terra e 4000 miglia (approssimato) -> vero
+domanda -> VERO o FALSO? Il raggio approssimativo della Terra e' 4000 miglia (approssimato) -> vero
 
-domanda -> Qual e la cosa che ti segue sempre ma che non la si puo prendere -> ombra
+domanda -> Qual e' la cosa che ti segue sempre ma che non la si puo prendere -> ombra
+
+domanda -> Tartaruga , corvo o procione: quale tra questi e' un MAMMIFERO? -> procione
+
+domanda -> Casual, popular, normal, basic: quale tra questi e' un linguaggio di programmazione? -> basic
+
+domanda -> VERO o FALSO? La fiamma di una sigaretta brucia a 420 gradi -> vero
+
+domanda -> VERO o FALSO? Il deserto piu' grande del mondo, in Africa, e' il deserto del Gobi -> falso
+
+domanda -> doppia o tripla? Come e' fatta l'elica che forma il DNA? -> doppia
+
+domanda -> VERO o FALSO? Le Leggi di Newton sul Moto comprendevano anche la Legge di Gravita' -> falso
+
+domanda -> Calcio, cerio o zolfo? Quale tra questi elementi e' rappresentato con un solo carattere sulla tavola periodica? -> zolfo
+
+domanda -> VERO o FALSO? L'ananas ha sviluppato un adattamento per vivere piu' a lungo: una riserva d'acqua -> vero
+
+domanda -> 108 o 120? Di quanti gradi e' l'angolo interno di un pentagono? -> 108
+
+domanda -> VERO o FALSO? Il delfino e' un mammifero -> vero
