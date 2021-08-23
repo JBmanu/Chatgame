@@ -29,7 +29,7 @@ def startServer():
 """ Funzione che si attiva quando si preme il bottone stop """
 def stopServer():
     print("Stopping server")
-    modelServer.server.close();
+    modelServer.closeServe();
     guiServer.stopBtns();
     guiServer.destroy();
     
@@ -72,9 +72,12 @@ def manageClient(client):
                 gameModel.incrPlayerEndTime();
 
                 if (gameModel.isAllPlayersEndTime()):
+
                     winner = gameModel.findWinner();
                     modelServer.sendBroadcast(bytes(gameModel.generateMsgWinner(winner), "utf8"))
+                    modelServer.sendBroadcast(bytes(Game.END, "utf8"))
                     modelServer.closeAllConnections();
+                    break;
                     
 
             if (stateAnswer == 0):
@@ -88,7 +91,9 @@ def manageClient(client):
             
             if (msg == bytes(ServerClient.KEY_QUIT, "utf8") or questionChoice == Game.LOSE):
                 modelServer.quitClient(client)
+                gameModel.incrPlayerEndTime();
                 break;
+                
         except ConnectionResetError:
             state = 1
 

@@ -17,6 +17,12 @@ class ServerModel():
         self.sockets = {}
         self.address = {}
 
+    def closeServe(self):
+        if(len(self.sockets) > 0):
+            self.sendBroadcast(bytes(ServerClient.KEY_QUIT_SERVE, "utf8"))
+        self.closeAllConnections()
+        self.server.close()
+
 
     """ Apre la socket, la connessione con il client e si mette in scolto """
     def openSocket(self):
@@ -28,9 +34,9 @@ class ServerModel():
         self.server.listen(ServerClient.SERVER_LISTENING);
 
 
-    """ La funzione invia un messaggio in broadcast a tutti i client."""
+    """ La chiude tutte le connessioni dei client."""
     def closeAllConnections(self):
-        for k in self.clients.keys():
+        for k in self.sockets.keys():
             k.close();
 
 

@@ -14,6 +14,8 @@ class GameModel():
     WRONG = "Sbagliato -1"
     LOSE = "HAI PERSO"
 
+    END = "FINE..."
+
     FILE = os.path.join("domande.txt")
 
     def __init__(self):
@@ -82,13 +84,13 @@ class GameModel():
     
     """ Incrementa i giocatori che hanno finito il tempo """
     def incrPlayerEndTime(self):
-        self.playersEndTIme += 1;
+        self.playersEndTime += 1;
 
     
     """ Ritorna se tutti i giocatori hanno finito il tempo"""
     def isAllPlayersEndTime(self):
         lenghPlayers = len(self.playersPoint)
-        return self.playersEndTIme == lenghPlayers
+        return self.playersEndTime == lenghPlayers
 
 
     """ Funnzion che ritorna una tupla del giocatore che ha vinto e i punti"""
@@ -106,7 +108,7 @@ class GameModel():
             
     """ Genera il messaggio da inviare ai giocatori di chi ha vinto """
     def generateMsgWinner(self, winner):
-        return "Ha vinto: " + winner[0] + " con " + str(winner[1]) + " punti"
+        return "Ha vinto: " + winner[0] + " con " + str(winner[1]) + " punti\n\n"
 
     
     """ Incrementa di un il punteggio di un giocatore """

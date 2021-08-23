@@ -1,3 +1,4 @@
+from ServerModel import ServerModel
 from UtilitiesGUI import UtilitiesGUI as Utils
 import tkinter as tk
 
@@ -53,7 +54,8 @@ class LoginApplication(tk.Tk):
         self.pulsante_login.place(relx = 0.39, relheight = 1, relwidth = 0.22)
         
         #pulsante autocompletamento
-        self.pulsante_riempimento = tk.Button(self.pulsante_login_label, text = "AUTO", font = Utils.FONT_H4, width = 3, bg = Utils.BG_GRAY)
+        self.pulsante_riempimento = tk.Button(self.pulsante_login_label, text = "AUTO", font = Utils.FONT_H4, width = 3, bg = Utils.BG_GRAY, 
+            command = lambda : self.autoCompile())
         self.pulsante_riempimento.place(relx = 0.65, relheight = 0.850, relwidth = 0.13)
 
         #box inserimento testo HOST
@@ -77,5 +79,9 @@ class LoginApplication(tk.Tk):
         self.host_entry.delete(0, tk.END)
         self.port_entry.delete(0, tk.END)
         self.nick_entry.delete(0, tk.END)
-                    
-            
+
+
+    def autoCompile(self):
+        self.host_entry.insert(tk.END, ServerModel.ADDR)
+        self.port_entry.insert(tk.END, str(ServerModel.PORT))
+        self.nick_entry.insert(tk.END, "user")

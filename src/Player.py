@@ -71,8 +71,10 @@ def receive():
             msg = client.socket.recv(ServerClient.BUFSIZ).decode("utf8")
             chatGUI.insertMsgFromTextToChat(msg)    
 
-            if(msg == Game.LOSE or msg > "Ha vinto:"):
+            if(msg == Game.LOSE or msg == Game.END or  msg == ServerClient.KEY_QUIT_SERVE):
+                sleep(5)
                 state = 1;
+                quitGame();
 
         except OSError:  
             break
@@ -80,8 +82,6 @@ def receive():
 
 # per uscire dalla partita
 def quitGame():
-    client.socket.close();
-    loginGUI.destroy();
     chatGUI.destroy();
 
 
@@ -90,9 +90,6 @@ def printTImer():
 
     end = 0;
     while end == 0:
-        #qua dovrai mettere la label = timer.time
-        #chatGUI.timer_label.configure()
-        #^ho provato a passargliela ma non mi va un cazzo, ho provato tutto, risulta sempre vuota
         chatGUI.timer_label.config(text = str(timer.time))
         timer.decrTime()
         sleep(1)
@@ -104,7 +101,7 @@ def printTImer():
             chatGUI.timer_label.config(text = str(timer.time))
 
             #tempo sara la parola chiave che il client manda al server per dire che ha finito il tempo
-            client.socket.send(bytes(ServerClient.KEY_TIME, "utf8"))
+            client.socket.send(bytes(ServerClient.KEY_END_TIME, "utf8"))
             end = 1;
 
 

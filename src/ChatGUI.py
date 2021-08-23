@@ -118,3 +118,5 @@ class ChatApplication(tk.Tk):
 
     def insertTime(self, time):
         self.timer_label.configure(text = time);
+
+        
