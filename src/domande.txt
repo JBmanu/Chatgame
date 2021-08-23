@@ -54,36 +54,42 @@ domanda -> 108 o 120? Di quanti gradi e' l'angolo interno di un pentagono? -> 10
 
 domanda -> VERO o FALSO? Il delfino e' un mammifero -> vero
 
-domanda -> La mia vita può durare qualche ora, quello che produco mi divora. Sottile sono veloce, grossa sono lenta e il vento molto mi spaventa. Chi sono? -> candela
+domanda -> La mia vita puo' durare qualche ora, quello che produco mi divora. Sottile sono veloce, grossa sono lenta e il vento molto mi spaventa. Chi sono? -> candela
 
 domanda -> Quando sono in piedi loro sono sdraiati, quando sono sdraiato loro sono in piedi. Chi sono? -> piedi
 
-domanda -> Mio padre fa il cantante, mia madre è balbuziente. Il mio vestito è bianco e il mio cuore d’oro. Chi sono? -> uovo
+domanda -> Mio padre fa il cantante, mia madre e' balbuziente. Il mio vestito e' bianco e il mio cuore d’oro. Chi sono? -> uovo
 
 domanda -> Tutti lo possono aprire, ma nessuno lo sa chiudere. Cosa? -> uovo
 
-domanda -> Si saluta solo se si è alzata, cos’è? -> bandiera
+domanda -> Si saluta solo se si e' alzata, cos’e'? -> bandiera
 
-domanda -> Anche se è unico, ce ne sono tanti. Di che cosa? -> sensi unici
+domanda -> Anche se e' unico, ce ne sono tanti. Di che cosa? -> sensi unici
 
-domanda -> Cosa c'è alla fine dell'arcobaleno, al centro dell'atomo e all'inizio dell'oceano? -> o
+domanda -> Cosa c'e' alla fine dell'arcobaleno, al centro dell'atomo e all'inizio dell'oceano? -> o
 
 domanda -> Vado avanti, vado indietro corro e mi fermo ma non cambio mai di posto. Chi sono? -> pendolo
 
-domanda -> Ti tiene in vita, ma lo vedi solo d'inverno. Cos'é? -> fiato
+domanda -> Ti tiene in vita, ma lo vedi solo d'inverno. Cos'e'? -> fiato
 
 domanda -> Copiona e tutta nera ci sta attaccata da mattina a sera. Cos'é? -> ombra
 
-domanda -> Sta dentro una casetta con il soffitto tondo, poi se ne fugge molto in fretta girando per il mondo. Ma certo, è vero, si tratta del… -> pensiero
+domanda -> Sta dentro una casetta con il soffitto tondo, poi se ne fugge molto in fretta girando per il mondo. Ma certo, e' vero, si tratta del… -> pensiero
 
-domanda -> Rossa rossetta, nell’umida gabbietta, saltella qua e là, il suo nome chi la sa ? -> lingua
+domanda -> Rossa rossetta, nell’umida gabbietta, saltella qua e la', il suo nome chi la sa ? -> lingua
 
 domanda -> Cerco la terra e mi tuffo in mare, ma poi vado a fondo perché non so nuotare. Chi sono? -> ancora
 
 domanda -> Se ne stanno in compagnia nella rossa scuderia trenta bei cavalli bianchi e non sono mai stanchi, tutti dritti sull’attenti siamo certamente... -> denti
 
-domanda -> Chi la fa, la vende. Chi la compra non la usa. Chi la usa non lo sa. Che cos'è? -> bara
+domanda -> Chi la fa, la vende. Chi la compra non la usa. Chi la usa non lo sa. Che cos'e'? -> bara
 
-domanda -> Più son caldo più son fresco, che fenomeno grottesco! -> pane
+domanda -> Piu' son caldo piu' son fresco, che fenomeno grottesco! -> pane
 
-domanda -> Va ridendo e torna piangendo. Cos'é? -> secchio
+domanda -> Va ridendo e torna piangendo. Cos'e'? -> secchio
+
+domanda -> Rimangono attraenti anche al buio: cosa sono? -> calamite
+
+domanda -> Non annega in acqua e non brucia col fuoco: di cosa si tratta? -> ghiaccio
+
+domanda -> Sono dentata, proteggo la casa, ma non mordo ne' abbaio: cosa sono? -> chiave
