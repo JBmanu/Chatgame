@@ -74,35 +74,42 @@ def receive():
             if(msg == Game.LOSE or msg == Game.END or  msg == ServerClient.KEY_QUIT_SERVE):
                 sleep(5)
                 state = 1;
-                chatGUI.destroy();
+                exitGame()
 
         except OSError:  
-            break
-
+            state = 1
+        
+def exitGame():
+    client.socket.close()
+    chatGUI.destroy();
+    quit(0)
+   
 
 # per uscire dalla partita
 def quitGame():
     client.socket.send(bytes(ServerClient.KEY_QUIT, "utf8"))
-    chatGUI.destroy();
-
+    exitGame();
 
 
 def printTImer():
 
     end = 0;
     while end == 0:
-        chatGUI.timer_label.config(text = str(timer.time))
-        timer.decrTime()
-        sleep(1)
-
-        if(timer.time == 0):
-            chatGUI.disabledButtons();
-            msg = ServerClient.KEY_END_TIME + '\n\n'
-            chatGUI.insertMsgFromTextToChat(msg)
+        try:
             chatGUI.timer_label.config(text = str(timer.time))
+            timer.decrTime()
+            sleep(1)
 
-            #tempo sara la parola chiave che il client manda al server per dire che ha finito il tempo
-            client.socket.send(bytes(ServerClient.KEY_END_TIME, "utf8"))
+            if(timer.time == 0):
+                chatGUI.disabledButtons();
+                msg = ServerClient.KEY_END_TIME + '\n\n'
+                chatGUI.insertMsgFromTextToChat(msg)
+                chatGUI.timer_label.config(text = str(timer.time))
+
+                #tempo sara la parola chiave che il client manda al server per dire che ha finito il tempo
+                client.socket.send(bytes(ServerClient.KEY_END_TIME, "utf8"))
+                end = 1;
+        except RuntimeError:
             end = 1;
 
 

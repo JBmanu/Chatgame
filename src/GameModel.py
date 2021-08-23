@@ -23,7 +23,9 @@ class GameModel():
 
         self.saluti = [];
         self.ruoli = []
+
         self.questionAnswer = {};
+        self.logitQuestion = {}
 
         self.playersRuolo = {};
         self.playersPoint = {};
@@ -46,6 +48,7 @@ class GameModel():
                     chars = list(splitString[2])
                     chars.remove('\n');
                     splitString[2] = "".join(chars);
+                    self.logitQuestion[splitString[1]] = False;
                     self.questionAnswer[splitString[1]] = splitString[2];
         
         self.f.close();
@@ -65,7 +68,21 @@ class GameModel():
     def randomQuestion(self):
         listQuestion = []
         listQuestion.extend(self.questionAnswer.keys())
-        return listQuestion[randint(0, len(listQuestion) - 1)]
+        
+        questions = listQuestion[randint(0, len(listQuestion) - 1)]
+        if(self.logitQuestion[questions] == True):
+            while self.logitQuestion[questions] == True and not self.questionComplited():
+                questions = listQuestion[randint(0, len(listQuestion) - 1)]
+
+        self.logitQuestion[questions] = True
+
+        return questions
+
+    def questionComplited(self):
+        for k, v in self.logitQuestion.items():
+            if(v == False):
+                return False
+        return True
 
 
     """ In una lista di domande ne cambia una il HAI PERSO """

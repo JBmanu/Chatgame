@@ -29,7 +29,11 @@ def startServer():
 """ Funzione che si attiva quando si preme il bottone stop """
 def stopServer():
     print("Stopping server")
-    modelServer.closeServe();
+    try:
+        modelServer.closeServe();
+    except ConnectionResetError:
+        print("Alcuni client sono usciti dalla partita")
+        
     guiServer.stopBtns();
     guiServer.destroy();
     
