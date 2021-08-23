@@ -69,12 +69,12 @@ class GameModel():
         listQuestion = []
         listQuestion.extend(self.questionAnswer.keys())
         
+        self.resetQuestion()
         questions = listQuestion[randint(0, len(listQuestion) - 1)]
+
         if(self.logitQuestion[questions] == True):
             while self.logitQuestion[questions] == True and not self.questionComplited():
                 questions = listQuestion[randint(0, len(listQuestion) - 1)]
-
-        self.logitQuestion[questions] = True
 
         return questions
 
@@ -84,6 +84,10 @@ class GameModel():
                 return False
         return True
 
+    def resetQuestion(self):
+        if(self.questionComplited()):
+            for k, v in self.logitQuestion.items():
+                v = False
 
     """ In una lista di domande ne cambia una il HAI PERSO """
     def inserChoiceLose(self, questions):

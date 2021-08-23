@@ -129,6 +129,7 @@ def sendWrongOrCorrect(client, questionChoice, answer):
         modelServer.sendStringMsgToClient(client, Game.WRONG)
         gameModel.decrPlayerPoint(modelServer.sockets[client])
 
+    gameModel.logitQuestion[questionChoice] = True
     guiServer.updateDisplay(gameModel.playersPoint, gameModel.playersRuolo)
 
 
