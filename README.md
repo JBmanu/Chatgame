@@ -1,6 +1,8 @@
 # Chatgame
 Track number 3
 
+Per scaricare il gioco, si deve scaricare lo zip della release 1.0
+
 Per far partire il server basterà avviare il modulo MasterServer.py
 
 Mentre per il/i giocatore/i che vogliono partecipare, si dovra lanciare il modulo Player.py
